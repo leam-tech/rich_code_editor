@@ -15,7 +15,7 @@ class Home extends StatelessWidget {
     return Scaffold(
       body: Container(
         child: Center(
-          child: FlatButton(
+          child: TextButton(
             onPressed: () {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => DemoCodeEditor()));
@@ -34,14 +34,14 @@ class DemoCodeEditor extends StatefulWidget {
 }
 
 class _DemoCodeEditorState extends State<DemoCodeEditor> {
-  RichCodeEditingController _rec;
-  SyntaxHighlighterBase _syntaxHighlighterBase;
+  RichCodeEditingController? _rec;
+  SyntaxHighlighterBase? _syntaxHighlighterBase;
 
   @override
   void initState() {
     super.initState();
     _syntaxHighlighterBase = DummySyntaxHighlighter();
-    _rec = RichCodeEditingController(_syntaxHighlighterBase);
+    _rec = RichCodeEditingController(_syntaxHighlighterBase!, text: '');
   }
 
   @override
@@ -68,13 +68,13 @@ class _DemoCodeEditorState extends State<DemoCodeEditor> {
             textCapitalization: TextCapitalization.none,
             decoration: null,
             syntaxHighlighter: _syntaxHighlighterBase,
-            maxLines: null,
-            onChanged: (String s) {},
-            onBackSpacePress: (TextEditingValue oldValue) {},
-            onEnterPress: (TextEditingValue oldValue) {
-              var result = _syntaxHighlighterBase.onEnterPress(oldValue);
+            maxLines: 9999,
+            onChanged: (String? s) {},
+            onBackSpacePress: (TextEditingValue? oldValue) {},
+            onEnterPress: (TextEditingValue? oldValue) {
+              var result = _syntaxHighlighterBase!.onEnterPress(oldValue!);
               if (result != null) {
-                _rec.value = result;
+                _rec!.value = result;
               }
             },
           )),
